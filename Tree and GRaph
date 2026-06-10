@@ -262,3 +262,41 @@ public class Solution {
         return ans.toString();
     }
 }
+
+Bellman ford for graph:
+
+import java.util.*;
+
+public class Solution {
+    public static int[] bellmonFord(int n, int m, int src, List<List<Integer>> edges) {
+
+        int[] dist = new int[n + 1];
+        Arrays.fill(dist, (int)1e8);
+
+        dist[src] = 0;
+
+        for (int i = 1; i <= n - 1; i++) {
+
+            for (List<Integer> edge : edges) {
+
+                int u = edge.get(0);
+                int v = edge.get(1);
+                int wt = edge.get(2);
+
+                if (dist[u] != (int)1e8 &&
+                    dist[u] + wt < dist[v]) {
+
+                    dist[v] = dist[u] + wt;
+                }
+            }
+        }
+
+        int[] ans = new int[n];
+
+        for (int i = 1; i <= n; i++) {
+            ans[i - 1] = dist[i];
+        }
+
+        return ans;
+    }
+}
